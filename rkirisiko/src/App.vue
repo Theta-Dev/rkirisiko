@@ -35,13 +35,13 @@
 
     <v-footer color="primary darken-1" padless>
       <v-row justify="center" no-gutters>
-        <v-btn text rounded class="my-2" href="https://thetdev.de" target="_blank">
+        <v-btn text rounded color="white" class="my-2" href="https://thetdev.de" target="_blank">
           ThetaDev
         </v-btn>
-        <v-btn text rounded class="my-2" href="https://github.com/Theta-Dev/rkirisiko" target="_blank">
+        <v-btn text rounded color="white" class="my-2" href="https://github.com/Theta-Dev/rkirisiko" target="_blank">
           GitHub
         </v-btn>
-        <v-btn text rounded class="my-2" href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html" target="_blank">
+        <v-btn text rounded color="white" class="my-2" href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html" target="_blank">
           Quelle: RKI
         </v-btn>
       </v-row>
