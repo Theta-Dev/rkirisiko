@@ -12,6 +12,7 @@
   "require": {
     "ressio/pharse": "0.2.0",
     "ext-json": "*",
-    "ext-iconv": "*"
+    "ext-iconv": "*",
+    "ext-intl": "*"
   }
 }
