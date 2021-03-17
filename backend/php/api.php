@@ -1,5 +1,15 @@
 <?php
-Header('Content-type: text/json');
+header('Content-type: text/json');
+
+// Allow from any origin
+if (isset($_SERVER['HTTP_ORIGIN'])) {
+    // Decide if the origin in $_SERVER['HTTP_ORIGIN'] is one
+    // you want to allow, and if so:
+    header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+    header('Access-Control-Allow-Credentials: true');
+    header('Access-Control-Max-Age: 86400');    // cache for 1 day
+}
+
 require 'vendor/autoload.php';
 
 $url = 'https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html';
@@ -38,7 +48,7 @@ function parse_date($date_str) {
 
     $date = new DateTime();
     $date->setDate($year, $month, $day);
-    return $date->format('Y-m-d');
+    return $date->format('d.m.Y');
 }
 
 
@@ -67,6 +77,7 @@ foreach($html('h2') as $header) {
             if($item->tag != 'li') continue;
 
             $inner_html = preg_replace('(^<li>|</li>$)', '', $item->html());
+            $inner_html = str_replace('\n', '', $inner_html);
             $text = $item->getPlainTextUTF8();
 
             preg_match('/^([A-zÄ-ü.\'´`]|([ -][A-zÄ-ü.]))+/', $text, $m);
