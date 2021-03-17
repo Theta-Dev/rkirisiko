@@ -10,54 +10,67 @@
     </v-snackbar>
 
     <div v-if="data_ready">
-      <v-text-field v-model="risk_filter" solo label="Suche..." autofocus clearable/>
-
-      <v-simple-table>
-        <template v-slot:default>
-          <thead class="text-left">
-          <tr>
-            <th>Land</th>
-            <th>Risiko</th>
-            <th>Seit wann</th>
-            <th>Details</th>
-          </tr>
-          </thead>
-          <tbody class="text-left">
-          <template v-for="(cdata, country) in filtered_data">
-            <template v-for="(item, index) in cdata">
-              <tr :key="country+index">
-                <td v-if="index===0" :rowspan="index===0 && cdata.length > 1 ? cdata.length : 1">{{ country }}</td>
-                <td>
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-icon v-bind="attrs" v-on="on" :color="risk_colors[item.type]">
-                        {{ risk_icons[item.type] }}
-                      </v-icon>
-                    </template>
-                    <span>{{ risk_types[item.type] }}</span>
-                  </v-tooltip>
-                </td>
-                <td>{{ item.date }}</td>
-                <td>
-                  <b>{{ item.detail }}</b>
-                  <p v-html="item.html"></p>
-                </td>
+      <v-row>
+        <v-col>
+          <v-text-field v-model="risk_filter" solo label="Suche..." autofocus clearable hide-details/>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-simple-table>
+            <template v-slot:default>
+              <thead class="text-left">
+              <tr>
+                <th>Land</th>
+                <th>Risiko</th>
+                <th>Seit wann</th>
+                <th>Details</th>
               </tr>
+              </thead>
+              <tbody class="text-left">
+              <template v-for="(cdata, country) in filtered_data">
+                <template v-for="(item, index) in cdata">
+                  <tr :key="country+index">
+                    <td v-if="index===0" :rowspan="index===0 && cdata.length > 1 ? cdata.length : 1">{{ country }}</td>
+                    <td>
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-icon v-bind="attrs" v-on="on" :color="risk_colors[item.type]">
+                            {{ risk_icons[item.type] }}
+                          </v-icon>
+                        </template>
+                        <span>{{ risk_types[item.type] }}</span>
+                      </v-tooltip>
+                    </td>
+                    <td>{{ item.date }}</td>
+                    <td>
+                      <b>{{ item.detail }}</b>
+                      <p v-html="item.html"></p>
+                    </td>
+                  </tr>
+                </template>
+              </template>
+              </tbody>
             </template>
-          </template>
-          </tbody>
-        </template>
-      </v-simple-table>
+          </v-simple-table>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-card class="py-2">
+            {{ Object.keys(filtered_data).length }} / {{ Object.keys(sorted_data).length }} Länder
+          </v-card>
+        </v-col>
+      </v-row>
     </div>
   </div>
 </template>
 
 <script>
-// Icons
-import {mdiVirus, mdiElevationRise, mdiAlert, mdiHistory} from '@mdi/js'
 import axios from "axios";
 
-//import testdata from '../test.json'
+// Icons
+import {mdiVirus, mdiElevationRise, mdiAlert, mdiHistory} from '@mdi/js'
 
 export default {
   name: "RiskTable",
@@ -89,17 +102,25 @@ export default {
   }),
 
   computed: {
-    filtered_data: function () {
-      let searchTerm = this.risk_filter.toLowerCase();
-      if(searchTerm === null) searchTerm = '';
+    sorted_data: function () {
+      return Object.keys(this.risk_data)
+          .sort(((a, b) => a.localeCompare(b, 'de-DE')))
+          .reduce((obj, key) => {
+            obj[key] = this.risk_data[key];
+            return obj;
+          }, {});
+    },
 
-      return Object.keys(this.risk_data).filter(country => {
+    filtered_data: function () {
+      if (!this.risk_filter) return this.sorted_data;
+      const searchTerm = this.risk_filter.toLowerCase();
+
+      return Object.keys(this.sorted_data).filter(country => {
         const key = country.toLowerCase();
 
         return key.includes(searchTerm);
-      }).sort(((a, b) => a.localeCompare(b, 'de-DE')))
-          .reduce((obj, key) => {
-        obj[key] = this.risk_data[key];
+      }).reduce((obj, key) => {
+        obj[key] = this.sorted_data[key];
         return obj;
       }, {});
     }
@@ -107,15 +128,14 @@ export default {
 
   methods: {
     fetch_data: function () {
-      axios.get('http://localhost:8001/api.php')
+      axios.get('https://thetadev.de/rki/api.php')
           .then(response => {
             console.log(response);
             if (response.status === 200 && response.data instanceof Object) {
               this.risk_data = response.data;
               this.data_ready = true;
-              if(this.reload_timeout) clearTimeout(this.reload_timeout);
-            }
-            else this.fetch_data_error();
+              if (this.reload_timeout) clearTimeout(this.reload_timeout);
+            } else this.fetch_data_error();
           })
           .catch(reason => {
             console.log(reason);
