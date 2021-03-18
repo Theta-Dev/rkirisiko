@@ -35,7 +35,7 @@
 
     <v-footer color="primary darken-1" padless>
       <v-row justify="center" no-gutters>
-        <v-btn text rounded color="white" class="my-2" href="https://thetdev.de" target="_blank">
+        <v-btn text rounded color="white" class="my-2" href="https://thetadev.de" target="_blank">
           ThetaDev
         </v-btn>
         <v-btn text rounded color="white" class="my-2" href="https://github.com/Theta-Dev/rkirisiko" target="_blank">
