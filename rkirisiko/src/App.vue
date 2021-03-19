@@ -30,7 +30,7 @@
     </v-app-bar>
 
     <v-main>
-      <HelloWorld/>
+      <Main/>
     </v-main>
 
     <v-footer color="primary darken-1" padless>
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import Main from './components/Main';
 
 // Icons
 import {mdiVirus, mdiOpenInNew, mdiLightbulb, mdiWhiteBalanceSunny} from '@mdi/js'
@@ -59,7 +59,7 @@ export default {
   name: 'App',
 
   components: {
-    HelloWorld,
+    Main,
   },
 
   data: () => ({

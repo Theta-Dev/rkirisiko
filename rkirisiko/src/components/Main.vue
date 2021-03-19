@@ -12,7 +12,7 @@
 import RiskTable from "@/components/RiskTable";
 
 export default {
-  name: 'HelloWorld',
+  name: 'Main',
 
   components: {
     RiskTable,
