@@ -16,8 +16,20 @@ $url = 'https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebie
 
 $header_map = array(
     '1. Folgende Staaten gelten aktuell als Virusvarianten-Gebiete:' => 'mutation',
+    '1. Folgende Staaten gelten aktuell als Virusvariantengebiete:' => 'mutation',
+    '1. Folgende Staaten/Regionen gelten aktuell als Virusvariantengebiete:' => 'mutation',
+
     '2. Folgende Staaten/Regionen gelten aktuell Hochinzidenzgebiete:' => 'high_incidence',
+    '2. Folgende Staaten gelten aktuell Hochinzidenzgebiete:' => 'high_incidence',
+    '2. Folgende Staaten gelten aktuell als Hochinzidenzgebiete:' => 'high_incidence',
+    '2. Folgende Staaten gelten aktuell als Hochrisikogebiete:' => 'high_incidence',
+    '2. Folgende Staaten/Regionen gelten aktuell als Hochrisikogebiete:' => 'high_incidence',
+
+    '3. Folgende Staaten gelten aktuell als Risikogebiete:' => 'risk',
     '3. Folgende Staaten/Regionen gelten aktuell als Risikogebiete:' => 'risk',
+    '3. Folgende Staaten gelten aktuell als "einfache" Risikogebiete:' => 'risk',
+    '3. Folgende Staaten/Regionen gelten aktuell als "einfache" Risikogebiete:' => 'risk',
+
     '4. Gebiete, die zu einem beliebigen Zeitpunkt in den vergangenen 10 Tagen Risikogebiete waren, aber derzeit KEINE mehr sind:' => 'legacy'
 );
 
