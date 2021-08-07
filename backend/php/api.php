@@ -23,7 +23,9 @@ $header_map = array(
     '2. Folgende Staaten gelten aktuell Hochinzidenzgebiete:' => 'high_incidence',
     '2. Folgende Staaten gelten aktuell als Hochinzidenzgebiete:' => 'high_incidence',
     '2. Folgende Staaten gelten aktuell als Hochrisikogebiete:' => 'high_incidence',
+    '2. Folgende Staaten gelten aktuell als Hochrisikogebiet:' => 'high_incidence',
     '2. Folgende Staaten/Regionen gelten aktuell als Hochrisikogebiete:' => 'high_incidence',
+    '2. Folgende Staaten/Regionen gelten aktuell als Hochrisikogebiet:' => 'high_incidence',
 
     '3. Folgende Staaten gelten aktuell als Risikogebiete:' => 'risk',
     '3. Folgende Staaten/Regionen gelten aktuell als Risikogebiete:' => 'risk',
