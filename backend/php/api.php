@@ -101,6 +101,7 @@ foreach($html('h2') as $header) {
             $country_detail = trim(iconv("UTF-8", "UTF-8//IGNORE", $m[0]));
 
             preg_match('/\d{1,2}. [A-zÄ-ü]+ \d{4}/', $text, $m);
+            if(!$m) continue;
             $date = parse_date($m[0]);
 
             $dataitem = array(
